@@ -39,7 +39,7 @@ const LoginForm = () => {
 						transition: Bounce,
 					})
 				} else {
-					res.data.role == 2 ? router.push('/profile') : router.push('/admin')
+					res.data.role == 3 ? router.push('/admin') : router.push('/profile')
 				}
 			})
 			.catch((err: AxiosError) => {
