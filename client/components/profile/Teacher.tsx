@@ -5,7 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import avatar from '/assets/avatar.png'
-
+import Cookies from 'js-cookie'
 const Teacher = () => {
 	const [data, setData] = useState<any>(null)
 	const [error, setError] = useState<AxiosError | null>(null)
@@ -14,8 +14,9 @@ const Teacher = () => {
 		axiosInstance
 			.get('/user/getUser')
 			.then(res => {
-				setData(res.data.message[0])
-				console.log(res.data.message[0])
+				// @TODO: fix this logic in UserController
+				setData(res.data.message[1])
+				console.log(res.data.message[1])
 			})
 			.catch((err: AxiosError) => {
 				setError(err)
