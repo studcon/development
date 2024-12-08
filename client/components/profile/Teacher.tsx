@@ -14,9 +14,8 @@ const Teacher = () => {
 		axiosInstance
 			.get('/user/getUser')
 			.then(res => {
-				// @TODO: fix this logic in UserController
-				setData(res.data.message[1])
-				console.log(res.data.message[1])
+				setData(res.data.message)
+				console.log(res.data.message)
 			})
 			.catch((err: AxiosError) => {
 				setError(err)
