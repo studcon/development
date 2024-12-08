@@ -58,7 +58,7 @@ const Subjects = (props: IProps) => {
 					</div>
 					<div className='text-[22px]'>{props.currentGroupName}</div>
 				</div>
-				{!subjects && 'Загрузка...'}
+				{!subjects && 'Загрузка предметов...'}
 				{subjects &&
 					subjects.map((el: any) => (
 						<div key={el.id}>

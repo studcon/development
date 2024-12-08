@@ -1,6 +1,6 @@
 import Header from '@/components/header/Header'
 import type { Metadata } from 'next'
-import '../globals.scss'
+import '../../globals.scss'
 
 export const metadata: Metadata = {
 	title: 'Профиль',

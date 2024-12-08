@@ -1,9 +1,12 @@
 'use client'
-import Groups from '@/components/profile/Groups'
-import News from '@/components/profile/News'
-import Subjects from '@/components/profile/Subjects'
-import Teacher from '@/components/profile/Teacher'
-import Topics from '@/components/profile/Topics'
+
+import Student from '@/components/student/profile/Student'
+import Groups from '@/components/teacher/profile/Groups'
+import News from '@/components/teacher/profile/News'
+import Subjects from '@/components/teacher/profile/Subjects'
+import Teacher from '@/components/teacher/profile/Teacher'
+import Topics from '@/components/teacher/profile/Topics'
+import { isTeacher } from '@/utils/roleChecker'
 import { useState } from 'react'
 
 const Profile = () => {

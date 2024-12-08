@@ -39,7 +39,18 @@ const LoginForm = () => {
 						transition: Bounce,
 					})
 				} else {
-					res.data.role == 3 ? router.push('/admin') : router.push('/profile')
+					// res.data.role == 3 ? router.push('/admin') : router.push('/profile')
+					switch (res.data.role) {
+						case 1:
+							router.push('/profile/student')
+							break
+						case 2:
+							router.push('/profile/teacher')
+							break
+						case 3:
+							router.push('/admin')
+							break
+					}
 				}
 			})
 			.catch((err: AxiosError) => {

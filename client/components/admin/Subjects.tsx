@@ -83,8 +83,8 @@ const Subjects = () => {
 			{/* content */}
 			{/* @TODO: discuss <pre> */}
 			<div>
-				{!data && 'Загрузка...'}
-				{!groups && 'Загрузка...'}
+				{!data && 'Загрузка предметов...'}
+				{!groups && 'Загрузка групп... '}
 				{data &&
 					groups &&
 					data.map((s: ISubject) => (
