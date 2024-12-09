@@ -31,9 +31,12 @@ class UserController extends Controller
         return ['code' => '200', 'message' => $groups];
     }
 
-    function getSubjects($group_id)
+    function getSubjects(Request $request, $group_id = null)
     {
-        return ['code' => '200', 'message' => Subject::where('group_id', $group_id)->get()];
+        if (!is_null($group_id))
+            return ['code' => '200', 'message' => Subject::where('group_id', $group_id)->get()];
+
+        return ['code' => '200', 'message' => Subject::where('user_id', $request->header('user_id'))->get()];
     }
 
 
