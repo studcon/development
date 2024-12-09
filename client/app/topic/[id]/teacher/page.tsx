@@ -3,10 +3,6 @@
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 
-import Lection from '@/components/topic/Lection'
-import LectionEditor from '@/components/topic/LectionEditor'
-import Test from '@/components/topic/Test'
-import TestEditor from '@/components/topic/TestEditor'
 import { ILecture } from '@/types/models/ILecture'
 import { ITest } from '@/types/models/ITest'
 import axiosInstance from '@/utils/axiosInstance'
@@ -14,6 +10,10 @@ import { AxiosError } from 'axios'
 import Link from 'next/link'
 import { useParams, useRouter } from 'next/navigation'
 import arrow from '/assets/arrow.png'
+import Lection from '@/components/teacher/topic/Lection'
+import Test from '@/components/teacher/topic/Test'
+import LectionEditor from '@/components/teacher/topic/LectionEditor'
+import TestEditor from '@/components/teacher/topic/TestEditor'
 
 const Topic = () => {
 	const [isLectionCreateOpen, setLectionCreateOpen] = useState<boolean>(false)

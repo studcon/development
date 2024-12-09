@@ -88,7 +88,7 @@ const Topics = (props: IProps) => {
 							topics.map((el: any) => (
 								<div key={el.id}>
 									<Link
-										href={`/topic/${el.id}`}
+										href={`/topic/${el.id}/teacher`}
 										className='flex justify-between items-center mb-[10px] transition-[0.3s] hover:bg-buttonsHover hover:transition-[0.3s] p-[10px] rounded-[10px]'
 									>
 										<p className='break-words overflow-hidden'>{el.title}</p>
