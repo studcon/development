@@ -51,7 +51,7 @@ const Student = () => {
 				<div>
 					<div className='text-[27px] mb-[5px]'>
 						{!data && 'Загрузка...'}
-						{data?.name} {data?.surname} {data?.patronymic}
+						{data?.surname} {data?.name} {data?.patronymic}
 					</div>
 					{!data && 'Загрузка...'}
 					<div className='text-[30px] mb-[30px]'>{data?.groupName}</div>
