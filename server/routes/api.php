@@ -28,6 +28,7 @@ Route::controller(UserController::class)->prefix('/user')->group(function () {
     Route::get('/getSubjects/{group_id?}', 'getSubjects');
     // getSubjects (student)
     Route::get('/getSubjects/', 'getSubjects');
+    Route::get('/getSubject/{subject_id}', 'getSubject');
     Route::get('/getTopics/{subject_id}', 'getTopics');
     Route::post('/addTopic', 'addTopic');
     Route::get('/getNews', 'getNews');
