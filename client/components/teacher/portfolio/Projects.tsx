@@ -3,8 +3,8 @@
 import axiosInstance from '@/utils/axiosInstance'
 import { AxiosError } from 'axios'
 import { useEffect, useState } from 'react'
-import CreateProjectModal from '../modal/CreateProjectModal'
 import Project from './Project'
+import CreateProjectModal from '@/components/modal/CreateProjectModal'
 
 const Projects = () => {
 	const [isModalCreateOpen, setModalCreateOpen] = useState(false)

@@ -1,6 +1,6 @@
+import ContextMenu from '@/components/ContextMenu'
+import UpdateProjectModal from '@/components/modal/UpdateProjectModal'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
-import ContextMenu from '../ContextMenu'
-import UpdateProjectModal from '../modal/UpdateProjectModal'
 
 interface IProject {
 	id: number
