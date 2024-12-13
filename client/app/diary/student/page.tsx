@@ -70,7 +70,9 @@ const DairyPage = () => {
 
 					{/* right */}
 					<div className='w-[685px] relative p-[25px]  h-[600px] bg-purple rounded-[22px]'>
-						<Diary subject={subjects[selectedSubject]} />
+						{subjects[selectedSubject] && (
+							<Diary subject={subjects[selectedSubject]} />
+						)}
 					</div>
 				</div>
 			</div>

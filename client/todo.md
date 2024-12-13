@@ -1,2 +1,3 @@
 - [x] Add `mx-[25px]` to every block
 - [x] optimize `globals.scss` import path
+- [ ] add `active` effect to buttons on left side of topic and diary
