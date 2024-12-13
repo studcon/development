@@ -13,29 +13,39 @@ use Illuminate\Http\Request;
 
 class TopicController extends Controller
 {
-    function getMaterials($topic_id) {
+    function getMaterials($topic_id)
+    {
         return ['code' => 200, 'message' => ['lectures' => Topic::find($topic_id)->lectures, 'tests' => Topic::find($topic_id)->tests]];
     }
 
-    function getLecture($lecture_id) {
+    function getLecture($lecture_id)
+    {
         return ['code' => 200, 'message' => Lecture::find($lecture_id)];
     }
 
-    function getTopic($topic_id) {
+    function getTopic($topic_id)
+    {
         return ['code' => 200, 'message' => Topic::find($topic_id)];
     }
 
-    function getTest($test_id) {
+    function getTest($test_id)
+    {
         $test = Test::find($test_id)->only(['id', 'title']);
         $questions = Question::where('test_id', $test_id)->get();
         $result = [];
-        foreach($questions as $question) {
-            array_push( $result, ['id' => $question->id,'title' => $question->title, 'answers' => Answer::where('question_id', $question->id)->get()]);
+        foreach ($questions as $question) {
+            array_push($result, ['id' => $question->id, 'title' => $question->title, 'answers' => Answer::where('question_id', $question->id)->get()]);
         }
         return ['code' => 200, 'message' => ['test' => $test, 'questions' => $result]];
     }
+    function getMark($test_id, Request $request)
+    {
+        $mark = Mark::where('test_id', $test_id)->where('user_id', $request->header('user_id'))->first();
 
-    function getMarks($test_id) {
+        return ['code' => 200, 'message' => $mark];
+    }
+    function getMarks($test_id)
+    {
         $marks = Test::find($test_id)->marks;
         $marksUser = [];
         foreach ($marks as $mark) {
@@ -45,7 +55,8 @@ class TopicController extends Controller
         return ['code' => 200, 'message' => $marksUser];
     }
 
-    function getAnswers($test_id) {
+    function getAnswers($test_id)
+    {
         $questions = Question::where('test_id', $test_id)->get();
         $questionsAnswers = [];
         foreach ($questions as $question) {
@@ -55,11 +66,13 @@ class TopicController extends Controller
         return ['code' => 200, 'message' => $questionsAnswers];
     }
 
-    function addLecture(Request $request) {
+    function addLecture(Request $request)
+    {
         return ['code' => 201, 'message' => Lecture::create($request->all())];
     }
 
-    function addTest(Request $request) {
+    function addTest(Request $request)
+    {
         $test = Test::create(['title' => $request->title, 'topic_id' => $request->topic_id]);
         foreach ($request->questions as $question) {
             $questionCreate = Question::create(['title' => $question['title'], 'test_id' => $test->id]);
@@ -70,20 +83,23 @@ class TopicController extends Controller
         return ['code' => 201, 'message' => 'Создано'];
     }
 
-    function deleteLecture($lecture_id) {
+    function deleteLecture($lecture_id)
+    {
         return ['code' => 410, 'message' => Lecture::find($lecture_id)->delete()];
     }
 
-    function deleteTest($test_id) {
+    function deleteTest($test_id)
+    {
         return ['code' => 410, 'message' => Test::find($test_id)->delete()];
     }
 
-    function updateLecture(Request $request, $lecture_id) {
+    function updateLecture(Request $request, $lecture_id)
+    {
         return ['code' => 200, 'message' => Lecture::find($lecture_id)->update(['title' => $request->input('title'), 'content' => $request->input('content')])];
     }
 
-    function updateMark(Request $request, $mark_id) {
+    function updateMark(Request $request, $mark_id)
+    {
         return ['code' => 200, 'message' => Mark::find($mark_id)->update(['mark' => $request->input('mark')])];
     }
-
 }

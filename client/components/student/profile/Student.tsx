@@ -55,10 +55,17 @@ const Student = () => {
 					</div>
 					{!data && 'Загрузка...'}
 					<div className='text-[30px] mb-[30px]'>{data?.groupName}</div>
-					<div className='flex transition-[0.3s] hover:bg-buttonsHover h-[75px] justify-center items-center bg-purple w-[228px] rounded-[22px]'>
-						<Link href={'/portfolio'} className='w-inherit text-[30px]'>
-							Портфолио
-						</Link>
+					<div className='flex'>
+						<div className='flex transition-[0.3s] mr-[15px] hover:bg-buttonsHover h-[75px] justify-center items-center bg-purple w-[228px] rounded-[22px]'>
+							<Link href={'/portfolio'} className='w-inherit text-[30px]'>
+								Портфолио
+							</Link>
+						</div>
+						<div className='flex transition-[0.3s] hover:bg-buttonsHover h-[75px] justify-center items-center bg-purple w-[228px] rounded-[22px]'>
+							<Link href={'/diary/student'} className='w-inherit text-[30px]'>
+								Дневник
+							</Link>
+						</div>
 					</div>
 				</div>
 			</div>
