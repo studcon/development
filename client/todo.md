@@ -1,1 +1,2 @@
-- [ ] Add `mx-[25px]` to every block
+- [x] Add `mx-[25px]` to every block
+- [x] optimize `globals.scss` import path
