@@ -21,12 +21,12 @@ const DairyPage = () => {
 		console.log('url params')
 		const studentId = params.get('student_id')
 		console.log(studentId)
-		if (studentId != null) {
-			localStorage.setItem('real_user_id', Cookies.get('user_id')!)
-			Cookies.set('user_id', studentId)
-		}
+		const getSubjectsUrl =
+			studentId != null
+				? `/user/getStudentSubjects/${studentId}`
+				: '/user/getSubjects'
 		axiosInstance
-			.get(`/user/getSubjects`)
+			.get(getSubjectsUrl)
 			.then(res => {
 				setSubjects(res.data.message)
 				console.log(res.data.message)
@@ -34,10 +34,6 @@ const DairyPage = () => {
 			.catch((err: AxiosError) => {
 				setError(err)
 			})
-		return () => {
-			const realUserId = localStorage.getItem('real_user_id')
-			if (realUserId != null) Cookies.set('user_id', realUserId)
-		}
 	}, [])
 
 	const [selectedSubject, setSelectedSubject] = useState<number | null>(null)
