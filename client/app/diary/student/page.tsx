@@ -5,18 +5,26 @@ import React, { useEffect, useState } from 'react'
 import arrow from '/assets/arrow.png'
 import { AxiosError } from 'axios'
 import axiosInstance from '@/utils/axiosInstance'
-import { useParams, useRouter } from 'next/navigation'
+import { useParams, useRouter, useSearchParams } from 'next/navigation'
 import Diary from '@/components/diary/student/Diary'
 import { ISubject } from '@/types/models/ISubject'
+import Cookies from 'js-cookie'
 
 const DairyPage = () => {
 	const [subjects, setSubjects] = useState<ISubject[]>([])
 	const [error, setError] = useState<AxiosError | null>(null)
 
 	const router = useRouter()
-	const params = useParams()
+	const params = useSearchParams()
 
 	useEffect(() => {
+		console.log('url params')
+		const studentId = params.get('student_id')
+		console.log(studentId)
+		if (studentId != null) {
+			localStorage.setItem('real_user_id', Cookies.get('user_id')!)
+			Cookies.set('user_id', studentId)
+		}
 		axiosInstance
 			.get(`/user/getSubjects`)
 			.then(res => {
@@ -26,8 +34,12 @@ const DairyPage = () => {
 			.catch((err: AxiosError) => {
 				setError(err)
 			})
-		// getSubject
+		return () => {
+			const realUserId = localStorage.getItem('real_user_id')
+			if (realUserId != null) Cookies.set('user_id', realUserId)
+		}
 	}, [])
+
 	const [selectedSubject, setSelectedSubject] = useState<number>(0)
 	return (
 		<div className='h-screen w-[1080px] mx-auto'>

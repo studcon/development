@@ -41,7 +41,7 @@ class UserController extends Controller
         if (!is_null($group_id))
             return ['code' => '200', 'message' => Subject::where('group_id', $group_id)->get()];
 
-        return ['code' => '200', 'message' => Subject::where('user_id', $request->header('user_id'))->get()];
+        return ['code' => '200', 'message' => Subject::where('group_id', User::find($request->header('user_id'))->group_id)->get()];
     }
 
 

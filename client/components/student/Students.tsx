@@ -24,7 +24,10 @@ const Students = (props: Props) => {
 			<div>
 				{/* 1 */}
 				{props.students.map((student: IUser, idx: number) => (
-					<Link key={student.id} href={`/diary/student/${student.id}`}>
+					<Link
+						key={student.id}
+						href={`/diary/student?student_id=${student.id}`}
+					>
 						<div className='bg-lightPurple hover:bg-buttonsHover transition-[0.3s] p-[15px] text-[18px] rounded-[10px] mt-[21px] flex items-center justify-between'>
 							<div className='w-fit'>
 								<div className='w-[250px]'>
