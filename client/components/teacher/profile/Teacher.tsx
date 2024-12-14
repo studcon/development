@@ -40,12 +40,18 @@ const Teacher = () => {
 					{!data && 'Загрузка...'}
 					{data?.surname} {data?.name} {data?.patronymic}
 				</div>
-				<Link
-					href={'/portfolio'}
-					className='flex h-[75px] justify-center items-center bg-purple hover:bg-buttonsHover hover:transition-[0.3s] transition-[0.3s] w-[228px] rounded-[22px] text-[30px]'
-				>
-					<span className=''>Портфолио</span>
-				</Link>
+				<div className='flex'>
+					<div className='flex transition-[0.3s] mr-[15px] hover:bg-buttonsHover h-[75px] justify-center items-center bg-purple w-[228px] rounded-[22px]'>
+						<Link href={'/portfolio'} className='w-inherit text-[30px]'>
+							Портфолио
+						</Link>
+					</div>
+					<div className='flex transition-[0.3s] hover:bg-buttonsHover h-[75px] justify-center items-center bg-purple w-[228px] rounded-[22px]'>
+						<Link href={'/diary/teacher'} className='w-inherit text-[30px]'>
+							Дневник
+						</Link>
+					</div>
+				</div>
 			</div>
 		</div>
 	)

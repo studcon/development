@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\TopicController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -32,6 +33,10 @@ Route::controller(UserController::class)->prefix('/user')->group(function () {
     Route::get('/getTopics/{subject_id}', 'getTopics');
     Route::post('/addTopic', 'addTopic');
     Route::get('/getNews', 'getNews');
+});
+
+Route::controller(TeacherController::class)->prefix('/teacher')->group(function () {
+    Route::get('/getStudents/{group_id}', 'getStudents');
 });
 Route::controller(ProjectController::class)->prefix('/project')->group(function () {
     Route::get('/getAll', 'getAll');

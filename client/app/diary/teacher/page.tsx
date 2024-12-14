@@ -6,60 +6,44 @@ import arrow from '/assets/arrow.png'
 import { AxiosError } from 'axios'
 import axiosInstance from '@/utils/axiosInstance'
 import { useParams, useRouter } from 'next/navigation'
-import { ITest } from '@/types/models/ITest'
-import { ILecture } from '@/types/models/ILecture'
-import Lection from '@/components/student/topic/Lection'
-import Test from '@/components/student/topic/Test'
+import Students from '@/components/student/Students'
+import { IGroup } from '@/types/models/IGroup'
+import { IUser } from '@/types/models/IUser'
 
-const Topic = () => {
-	const [subject, setSubject] = useState<any>(null)
+const DairyPage = () => {
+	const [groups, setGroups] = useState<IGroup[]>([])
+	const [students, setStudents] = useState<IUser[]>([])
 	const [error, setError] = useState<AxiosError | null>(null)
-	const [tabs, setTabs] = useState<React.JSX.Element[]>([])
 
 	const router = useRouter()
 	const params = useParams()
 
-	// const tabs = [
-	// 	<Lection title='lection 1' isTest={false} lectionId={1} />,
-	// 	<Lection title='lection 2' isTest={false} lectionId={2} />,
-	// 	<Test title='test 1' isTest={true} testId={1} />,
-	// 	<Test title='test 2' isTest={true} testId={2} />,
-	// ]
-
-	useEffect(() => {
-		// getMaterials
-
+	const [selectedGroup, setSelectedGroup] = useState<number>(0)
+	function selectGroup(e: React.MouseEvent, idx: number) {
+		e.preventDefault()
+		console.log('select group called')
+		setSelectedGroup(groups[idx].id)
 		axiosInstance
-			.get(`/user/getSubjects/`)
+			.get(`/teacher/getStudents/${groups[idx].id}`)
 			.then(res => {
-				setSubject(res.data.message)
+				console.log(`students from group ${groups[idx].id}`)
 				console.log(res.data.message)
-
-				res.data.message.lectures.forEach((lecture: ILecture) => {
-					setTabs(tabs => [
-						...tabs,
-						<Lection lecture={lecture} isTest={false} />,
-					])
-				})
-				res.data.message.tests.forEach((test: ITest) => {
-					setTabs(tabs => [...tabs, <Test test={test} isTest={true} />])
-				})
+				setStudents(res.data.message)
+			})
+			.catch(console.log)
+	}
+	useEffect(() => {
+		axiosInstance
+			.get(`/user/getGroups`)
+			.then(res => {
+				console.log(res.data.message.flat())
+				setGroups(res.data.message.flat())
 			})
 			.catch((err: AxiosError) => {
 				setError(err)
 			})
 		// getSubject
-		axiosInstance
-			.get(`/user/getSubject/${params.id}`)
-			.then(res => {
-				setSubject(res.data.message)
-				console.log(res.data.message)
-			})
-			.catch((err: AxiosError) => {
-				setError(err)
-			})
-	}, [])
-	const [selectedTab, setSelectedTab] = useState<number>(0)
+	}, [selectedGroup])
 	return (
 		<div className='h-screen w-[1080px] mx-auto'>
 			<div className='p-[25px]'>
@@ -74,27 +58,22 @@ const Topic = () => {
 					>
 						<Image src={arrow} width={26} height={32} alt='go back arrow' />
 					</div>
-					<div className='text-[35px]'>{subject && subject.name}</div>
+					<div className='text-[35px]'>Дневник</div>
 				</div>
 				<div className='flex items-center'>
 					{/* left */}
 					<div className='p-[25px] w-[320px] h-[600px] bg-purple rounded-[22px] mr-[25px]'>
 						<div className='*:mb-[2px] last:mb-0'>
-							{tabs.map((tab: React.JSX.Element, idx: number) => (
+							{groups.map((group: IGroup, idx: number) => (
 								<div
-									key={idx}
+									key={group.id}
 									className='hover:bg-buttonsHover rounded-[10px] transition-[0.3s]'
 								>
 									<button
 										className='p-[10px] text-left text-[15px] w-full'
-										onClick={e => {
-											e.preventDefault()
-											setSelectedTab(idx)
-										}}
+										onClick={e => selectGroup(e, idx)}
 									>
-										{!tab.props.isTest
-											? tab.props.lecture.title
-											: 'Тест: ' + tab.props.test.title}
+										{group.name}
 									</button>
 								</div>
 							))}
@@ -103,7 +82,12 @@ const Topic = () => {
 
 					{/* right */}
 					<div className='w-[685px] relative p-[25px]  h-[600px] bg-purple rounded-[22px]'>
-						{tabs[selectedTab]}
+						{!students && 'Загрузка...'}
+						{students && <Students students={students} />}
+						{selectedGroup == 0 && 'Выберите группу'}
+						{students.length == 0 &&
+							selectedGroup != 0 &&
+							'В этой группе нет студентов'}
 					</div>
 				</div>
 			</div>
@@ -111,4 +95,4 @@ const Topic = () => {
 	)
 }
 
-export default Topic
+export default DairyPage
