@@ -40,7 +40,7 @@ const DairyPage = () => {
 		}
 	}, [])
 
-	const [selectedSubject, setSelectedSubject] = useState<number>(0)
+	const [selectedSubject, setSelectedSubject] = useState<number | null>(null)
 	return (
 		<div className='h-screen w-[1080px] mx-auto'>
 			<div className='p-[25px]'>
@@ -82,7 +82,11 @@ const DairyPage = () => {
 
 					{/* right */}
 					<div className='w-[685px] relative p-[25px]  h-[600px] bg-purple rounded-[22px]'>
-						<Diary subject={subjects[selectedSubject]} />
+						{selectedSubject == null ? (
+							'Choose subject'
+						) : (
+							<Diary subject={subjects[selectedSubject]} />
+						)}
 					</div>
 				</div>
 			</div>
