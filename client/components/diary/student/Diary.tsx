@@ -48,6 +48,8 @@ const Diary = (props: Props) => {
 
 				const allMarks = await Promise.all(markPromises)
 				setMarks(allMarks.filter(Boolean))
+				console.log('all marks')
+				console.log(marks)
 			} catch (error) {
 				console.error('Error fetching diary data:', error)
 			}
@@ -72,10 +74,11 @@ const Diary = (props: Props) => {
 										<div className='text-[23px]'>
 											{test.title} -{' '}
 											<span className='font-bold'>
-												{marks &&
-													marks.map(m =>
-														m.test_id === test.id ? m.mark : 'не пройдено',
-													)}
+												{marks && marks.length > 0
+													? marks.map(m =>
+															m.test_id === test.id ? m.mark : 'не пройдено',
+														)
+													: 'не пройдено'}
 											</span>
 										</div>
 										<hr className='border-t-2 border-solid border-t-white mt-[15px]' />
