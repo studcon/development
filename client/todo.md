@@ -1,3 +1,11 @@
-- [x] Add `mx-[25px]` to every block
-- [x] optimize `globals.scss` import path
-- [ ] add `active` effect to buttons on left side of topic and diary
+- [ ] implement work with files; images with portfolio
+- [ ] interactive lectures(?)
+- [ ] add participations to portfolio
+- [ ] add archive for previous years for student
+- [ ] breadcrumps for lectures and tests
+- [ ] dropdown topic instead of separate page
+- [ ] group news
+- [ ] test editing
+- [ ] fill up seeder with normal data
+- [ ] markdown lecture editor
+- [ ] projects catalogue
