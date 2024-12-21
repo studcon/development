@@ -20,6 +20,10 @@ class UserController extends Controller
         User::find($request->header('user_id'))->only(['name', 'surname', 'patronymic'])];
     }
 
+    function getGroup(Request $request)
+    {
+        return ['code' => 200, "message" => Group::where('id', User::find($request->header('user_id'))->group_id)->get()];
+    }
 
     function getGroups(Request $request)
     {

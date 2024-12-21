@@ -24,7 +24,10 @@ Route::controller(AuthController::class)->prefix('/auth')->group(function () {
 });
 Route::controller(UserController::class)->prefix('/user')->group(function () {
     Route::get('/getUser', 'getUser');
+    // getGroups (teacher)
     Route::get('/getGroups', 'getGroups');
+    // getGroup (student)
+    Route::get('/getGroup', 'getGroup');
     // getSubjects (teacher)
     Route::get('/getSubjects/{group_id?}', 'getSubjects');
     Route::get('/getStudentSubjects/{student_id}', 'getStudentSubjects');
