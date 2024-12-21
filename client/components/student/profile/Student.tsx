@@ -49,12 +49,14 @@ const Student = () => {
 				</div>
 				{/* name and portfolio */}
 				<div>
-					<div className='text-[27px] mb-[5px]'>
+					<div id='student__name' className='text-[27px] mb-[5px]'>
 						{!data && 'Загрузка...'}
 						{data?.surname} {data?.name} {data?.patronymic}
 					</div>
 					{!data && 'Загрузка...'}
-					<div className='text-[30px] mb-[30px]'>{data?.groupName}</div>
+					<div id='student__group' className='text-[30px] mb-[30px]'>
+						{data?.groupName}
+					</div>
 					<div className='flex'>
 						<div className='flex transition-[0.3s] mr-[15px] hover:bg-buttonsHover h-[75px] justify-center items-center bg-purple w-[228px] rounded-[22px]'>
 							<Link href={'/portfolio'} className='w-inherit text-[30px]'>
