@@ -14,9 +14,15 @@ class Mark extends Model
 
     protected $fillable = [
         'mark',
+        'date',
+        'test_id',
+        'user_id',
+        'time'
+
     ];
 
-    public function user() : BelongsTo {
+    public function user(): BelongsTo
+    {
         return $this->belongsTo(User::class);
     }
 }

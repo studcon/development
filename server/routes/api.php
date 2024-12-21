@@ -65,6 +65,7 @@ Route::controller(TopicController::class)->prefix('/topic')->group(function () {
     Route::get('/getAnswers/{test_id}/{user_id}', 'getAnswers');
     Route::put('/updateMark/{mark_id}', 'updateMark');
     // student
+    Route::post('/sendTest', 'sendTest');
 });
 
 Route::controller(AdminController::class)->prefix('/admin')->group(function () {

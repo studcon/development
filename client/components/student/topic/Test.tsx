@@ -9,6 +9,7 @@ import axiosInstance from '@/utils/axiosInstance'
 import { IQuestion } from '@/types/models/IQuestion'
 import { TQuestionData } from '@/types/TQuestionData'
 import { useRouter } from 'next/navigation'
+import { IMark } from '@/types/models/IMark'
 
 type Props = {
 	test: ITest
@@ -17,7 +18,7 @@ type Props = {
 const Test = (props: Props) => {
 	const router = useRouter()
 	const [testData, setTestData] = useState<any>(null)
-	const [mark, setMark] = useState<any>(null)
+	const [mark, setMark] = useState<IMark | null>(null)
 	const [error, setError] = useState<AxiosError | null>(null)
 	const [questionData, setQuestionData] = useState<TQuestionData[]>([])
 
@@ -61,7 +62,6 @@ const Test = (props: Props) => {
 			.post('/topic/sendTest', body)
 			.then(res => {
 				console.log(res.data.message)
-				// window.location.reload()
 				axiosInstance
 					.get(`/topic/getMark/${props.test.id}`)
 					.then(res => {
@@ -101,7 +101,7 @@ const Test = (props: Props) => {
 						Тест Проиден
 					</div>
 					<div className='flex justify-center items-center text-5xl text-white w-full h-full'>
-						{mark}
+						{mark.mark}
 					</div>
 				</>
 			)}

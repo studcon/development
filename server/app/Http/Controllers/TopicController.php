@@ -9,10 +9,61 @@ use App\Models\Question;
 use App\Models\Student_answer;
 use App\Models\Test;
 use App\Models\Topic;
+use DateTime;
 use Illuminate\Http\Request;
 
 class TopicController extends Controller
 {
+    function sendTest(Request $request)
+    {
+        foreach ($request->questions as $question) {
+            Student_answer::create([
+                'user_id' => $request->header('user_id'),
+                'question_id' => $question['id'],
+                'answer_id' => $question['answer_id']
+            ]);
+        }
+
+
+        // @TODO: count mark
+
+        $correctAnswersCount = 0;
+        $questionsCount = Question::where('test_id', $request->test_id)->count();
+
+
+        foreach ($request->questions as $q) {
+            $correctAnswerId = Answer::where('question_id', $q['id'])->where('correct', true)->get()[0]->id;
+            if ($q['answer_id'] == $correctAnswerId) {
+                $correctAnswersCount += 1;
+            }
+        }
+
+        $correctionPercent = $correctAnswersCount / $questionsCount * 100;
+
+        $mark = 0;
+
+        if ($correctionPercent >= 85) {
+            $mark = 5;
+        } else if ($correctionPercent >= 70 && $correctionPercent < 85) {
+            $mark = 4;
+        } else if ($correctionPercent >= 55 && $correctionPercent < 70) {
+            $mark = 3;
+        } else {
+            $mark = 2;
+        }
+
+        Mark::create([
+            'mark' => $mark,
+            'date' => (new DateTime())->format('d.m.Y'),
+            'test_id' => $request->test_id,
+            'user_id' => $request->header('user_id'),
+            'time' => $request->time
+
+        ]);
+
+        return ['code' => 201, 'message' => 'Успешно'];
+    }
+
     function getMaterials($topic_id)
     {
         return ['code' => 200, 'message' => ['lectures' => Topic::find($topic_id)->lectures, 'tests' => Topic::find($topic_id)->tests]];

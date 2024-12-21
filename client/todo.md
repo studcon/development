@@ -1,5 +1,5 @@
 - [ ] implement work with files; images with portfolio
-- [ ] interactive lectures(?)
+- [ ] interactive lectures(?) (questions inside lectures)
 - [ ] add participations to portfolio
 - [ ] add archive for previous years for student
 - [ ] breadcrumps for lectures and tests
