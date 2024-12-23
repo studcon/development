@@ -7,6 +7,7 @@ use App\Models\Lecture;
 use App\Models\Mark;
 use App\Models\Question;
 use App\Models\Student_answer;
+use App\Models\Subject;
 use App\Models\Test;
 use App\Models\Topic;
 use DateTime;
@@ -62,6 +63,13 @@ class TopicController extends Controller
         ]);
 
         return ['code' => 201, 'message' => 'Успешно'];
+    }
+
+
+    function getTopicsSubject($topic_id)
+    {
+
+        return ['code' => 201, 'message' => Subject::find(Topic::find($topic_id)->subject_id)];
     }
 
     function getMaterials($topic_id)

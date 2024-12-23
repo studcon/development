@@ -1,8 +1,12 @@
-- [ ] implement work with files; images with portfolio
+# 23/12/2024
+
+- [ ] breadcrumps for lectures and tests
+
+- [ ] implement work with files;
+- [ ] images in portfolio
 - [ ] interactive lectures(?) (questions inside lectures)
 - [ ] add participations to portfolio
 - [ ] add archive for previous years for student
-- [ ] breadcrumps for lectures and tests
 - [ ] dropdown topic instead of separate page
 - [ ] group news
 - [ ] test editing

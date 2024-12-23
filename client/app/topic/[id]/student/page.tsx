@@ -5,11 +5,12 @@ import React, { useEffect, useState } from 'react'
 import arrow from '/assets/arrow.png'
 import { AxiosError } from 'axios'
 import axiosInstance from '@/utils/axiosInstance'
-import { useParams, useRouter } from 'next/navigation'
+import { useParams, usePathname, useRouter } from 'next/navigation'
 import { ITest } from '@/types/models/ITest'
 import { ILecture } from '@/types/models/ILecture'
 import Lection from '@/components/student/topic/Lection'
 import Test from '@/components/student/topic/Test'
+import BreadCrumps from '@/components/BreadCrumps'
 
 const Topic = () => {
 	const [subject, setSubject] = useState<any>(null)
@@ -76,6 +77,7 @@ const Topic = () => {
 					</div>
 					<div className='text-[35px]'>{subject && subject.name}</div>
 				</div>
+				<BreadCrumps />
 				<div className='flex items-center'>
 					{/* left */}
 					<div className='p-[25px] w-[320px] h-[600px] bg-purple rounded-[22px] mr-[25px]'>

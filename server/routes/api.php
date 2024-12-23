@@ -53,6 +53,7 @@ Route::controller(TopicController::class)->prefix('/topic')->group(function () {
     // teacher
     Route::get('/getMaterials/{topic_id}', 'getMaterials');
     Route::get('/getTopic/{topic_id}', 'getTopic');
+    Route::get('/getTopicsSubject/{topic_id}', 'getTopicsSubject');
     Route::get('/getLecture/{lecture_id}', 'getLecture');
     Route::get('/getTest/{test_id}', 'getTest');
     Route::post('/addLecture', 'addLecture');
