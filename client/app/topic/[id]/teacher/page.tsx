@@ -14,6 +14,7 @@ import Lection from '@/components/teacher/topic/Lection'
 import Test from '@/components/teacher/topic/Test'
 import LectionEditor from '@/components/teacher/topic/LectionEditor'
 import TestEditor from '@/components/teacher/topic/TestEditor'
+import BreadCrumps from '@/components/BreadCrumps'
 
 const Topic = () => {
 	const [isLectionCreateOpen, setLectionCreateOpen] = useState<boolean>(false)
@@ -108,6 +109,7 @@ const Topic = () => {
 						{topic ? topic.title : 'Загрузка...'}
 					</div>
 				</div>
+				<BreadCrumps tab={tabs[selectedTab]} />
 				<div className='flex'>
 					{/* left */}
 					<div className='flex flex-col relative mr-[25px]'>

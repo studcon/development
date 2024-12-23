@@ -77,7 +77,7 @@ const Topic = () => {
 					</div>
 					<div className='text-[35px]'>{subject && subject.name}</div>
 				</div>
-				<BreadCrumps />
+				<BreadCrumps tab={tabs[selectedTab]} />
 				<div className='flex items-center'>
 					{/* left */}
 					<div className='p-[25px] w-[320px] h-[600px] bg-purple rounded-[22px] mr-[25px]'>
