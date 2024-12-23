@@ -1,6 +1,11 @@
 # 23/12/2024
 
-- [ ] breadcrumps for lectures and tests
+- [x] breadcrumps for lectures and tests
+
+# 24/12/2024
+
+- [ ] links in breadcrumps
+- [ ] markdown lecture editor
 
 - [ ] implement work with files;
 - [ ] images in portfolio
@@ -11,5 +16,4 @@
 - [ ] group news
 - [ ] test editing
 - [ ] fill up seeder with normal data
-- [ ] markdown lecture editor
 - [ ] projects catalogue
