@@ -4,7 +4,7 @@
 
 # 24/12/2024
 
-- [ ] links in breadcrumps
+- [x] links in breadcrumps
 - [ ] markdown lecture editor
 
 - [ ] implement work with files;
