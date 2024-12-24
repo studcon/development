@@ -25,9 +25,6 @@ class TopicController extends Controller
             ]);
         }
 
-
-        // @TODO: count mark
-
         $correctAnswersCount = 0;
         $questionsCount = Question::where('test_id', $request->test_id)->count();
 

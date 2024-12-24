@@ -81,7 +81,6 @@ const Subjects = () => {
 				</div>
 			</div>
 			{/* content */}
-			{/* @TODO: discuss <pre> */}
 			<div>
 				{!data && 'Загрузка предметов...'}
 				{!groups && 'Загрузка групп... '}

@@ -25,7 +25,6 @@ const News = () => {
 			<div className='flex w-full justify-center font-regular text-[30px] mb-[5px]'>
 				Новости
 			</div>
-			{/* @TODO: fix scroller styles */}
 			<div className='flex flex-col rounded-[22px] px-[25px] justify-start items-start min-start h-[600px] bg-purple'>
 				{/* news */}
 				<div className='w-full overflow-y-auto my-[25px]'>

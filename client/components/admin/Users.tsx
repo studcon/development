@@ -49,7 +49,6 @@ const Users = () => {
 				</div>
 			</div>
 			{/* content */}
-			{/* @TODO: discuss <pre> */}
 			<div>
 				{!data && 'Загрузка...'}
 				{!groups && 'Загрузка...'}

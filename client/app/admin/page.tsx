@@ -10,7 +10,6 @@ import Users from '@/components/admin/Users'
 import arrow from '/assets/arrow.png'
 
 const Admin = () => {
-	// @TODO: add 3rd tab
 	const tabs = [<Users />, <Groups />, <Subjects />, <News />]
 	const [selectedTab, setSelectedTab] = useState<number>(0)
 	return (
