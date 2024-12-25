@@ -10,9 +10,10 @@
 - [x] links in breadcrumps
 - [x] markdown lecture editor
 
-# 25/12/2024
+# 26/12/2024
 
-- [ ] implement work with files;
+- [x] images are displayed
+- [ ] images can be added
 - [ ] images in portfolio
 
 - [ ] interactive lectures(?) (questions inside lectures)
