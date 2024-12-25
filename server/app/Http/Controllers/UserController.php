@@ -17,7 +17,7 @@ class UserController extends Controller
     function getUser(Request $request)
     {
         return ['code' => '200', 'message' =>
-        User::find($request->header('user_id'))->only(['name', 'surname', 'patronymic'])];
+        User::find($request->header('user_id'))->only(['name', 'surname', 'patronymic', 'photo'])];
     }
 
     function getGroup(Request $request)

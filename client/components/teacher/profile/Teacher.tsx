@@ -4,8 +4,9 @@ import { AxiosError } from 'axios'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import avatar from '/assets/avatar.png'
+import defaultAvatar from '/assets/avatar.png'
 import Cookies from 'js-cookie'
+import { AVATARS_URL } from '@/constants'
 const Teacher = () => {
 	const [data, setData] = useState<any>(null)
 	const [error, setError] = useState<AxiosError | null>(null)
@@ -27,7 +28,7 @@ const Teacher = () => {
 			{/* avatar */}
 			<div className='mr-[15px]'>
 				<Image
-					src={avatar}
+					src={data?.photo ? AVATARS_URL + data.photo : defaultAvatar}
 					className='rounded-[10px]'
 					width={180}
 					height={180}

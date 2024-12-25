@@ -1,12 +1,16 @@
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
-import avatar from '/assets/avatar.png'
+import defaultAvatar from '/assets/avatar.png'
 import Link from 'next/link'
 import axiosInstance from '@/utils/axiosInstance'
 import { AxiosError } from 'axios'
+import { IUser } from '@/types/models/IUser'
+import { AVATARS_URL } from '@/constants'
+
+type TUserWithGroup = IUser & { groupName: string }
 
 const Student = () => {
-	const [data, setData] = useState<any>(null)
+	const [data, setData] = useState<TUserWithGroup | null>(null)
 	const [error, setError] = useState<AxiosError | null>(null)
 	useEffect(() => {
 		// getUser
@@ -29,6 +33,9 @@ const Student = () => {
 					groupName: res.data.message[0].name,
 				}))
 				console.log(res.data.message[0])
+				console.log(process.env)
+				console.log('photo')
+				console.log(AVATARS_URL + data?.photo)
 			})
 			.catch((err: AxiosError) => {
 				setError(err)
@@ -40,7 +47,7 @@ const Student = () => {
 				{/* avatar */}
 				<div className='mr-[15px]'>
 					<Image
-						src={avatar}
+						src={data?.photo ? AVATARS_URL + data.photo : defaultAvatar}
 						className='rounded-[10px]'
 						width={180}
 						height={180}
