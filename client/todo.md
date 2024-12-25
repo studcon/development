@@ -5,9 +5,12 @@
 # 24/12/2024
 
 - [x] links in breadcrumps
-- [ ] markdown lecture editor
+- [x] markdown lecture editor
+
+# 25/12/2024
 
 - [ ] implement work with files;
+
 - [ ] images in portfolio
 - [ ] interactive lectures(?) (questions inside lectures)
 - [ ] add participations to portfolio
