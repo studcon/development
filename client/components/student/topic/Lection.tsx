@@ -1,3 +1,4 @@
+import { MARKDOWN_VIEWER_STYLES } from '@/constants'
 import { ILecture } from '@/types/models/ILecture'
 import MDEditor from '@uiw/react-md-editor'
 import React from 'react'
@@ -20,7 +21,7 @@ const Lecture = (props: Props) => {
 				{/* @ts-ignore */}
 				<MDEditor.Markdown
 					source={props.lecture.content}
-					style={{ whiteSpace: 'pre-wrap' }}
+					style={MARKDOWN_VIEWER_STYLES}
 				/>
 			</div>
 		</div>

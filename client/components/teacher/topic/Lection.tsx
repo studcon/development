@@ -1,4 +1,5 @@
 'use client'
+import { MARKDOWN_VIEWER_STYLES } from '@/constants'
 import { ILecture } from '@/types/models/ILecture'
 import axiosInstance from '@/utils/axiosInstance'
 import MDEditor from '@uiw/react-md-editor'
@@ -29,7 +30,7 @@ const Lection = (props: IProps) => {
 						{/* @ts-ignore */}
 						<MDEditor.Markdown
 							source={props.lecture.content}
-							style={{ whiteSpace: 'pre-wrap' }}
+							style={MARKDOWN_VIEWER_STYLES}
 						/>
 					</div>
 				</div>
