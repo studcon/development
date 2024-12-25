@@ -1,4 +1,5 @@
 import { ILecture } from '@/types/models/ILecture'
+import MDEditor from '@uiw/react-md-editor'
 import React from 'react'
 
 type Props = {
@@ -14,7 +15,14 @@ const Lecture = (props: Props) => {
 				{props.lecture.title}
 			</div>
 			{/* content */}
-			<div>{props.lecture.content}</div>
+			<div>
+				{/* @TODO: remove ts-ignore and fix type error  */}
+				{/* @ts-ignore */}
+				<MDEditor.Markdown
+					source={props.lecture.content}
+					style={{ whiteSpace: 'pre-wrap' }}
+				/>
+			</div>
 		</div>
 	)
 }

@@ -1,6 +1,7 @@
 'use client'
 import { ILecture } from '@/types/models/ILecture'
 import axiosInstance from '@/utils/axiosInstance'
+import MDEditor from '@uiw/react-md-editor'
 import { Dispatch, SetStateAction } from 'react'
 
 interface IProps {
@@ -24,7 +25,12 @@ const Lection = (props: IProps) => {
 				</div>
 				<div className='text-wrap h-[630px]'>
 					<div className='resize-none bg-purple w-full h-full outline-none overflow-y-auto'>
-						{props.lecture.content}
+						{/* @TODO: remove ts-ignore and fix type error  */}
+						{/* @ts-ignore */}
+						<MDEditor.Markdown
+							source={props.lecture.content}
+							style={{ whiteSpace: 'pre-wrap' }}
+						/>
 					</div>
 				</div>
 			</div>

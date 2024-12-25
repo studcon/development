@@ -1,6 +1,7 @@
 'use client'
 import { ILecture } from '@/types/models/ILecture'
 import axiosInstance from '@/utils/axiosInstance'
+import MDEditor from '@uiw/react-md-editor'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
 interface IProps {
@@ -14,7 +15,7 @@ interface IProps {
 
 const LectionEditor = (props: IProps) => {
 	const [title, setTitle] = useState('')
-	const [content, setContent] = useState('')
+	const [content, setContent] = useState('** Hello world **')
 	useEffect(() => {
 		if (props.update == true) {
 			setTitle(props.lecture!.title)
@@ -55,12 +56,9 @@ const LectionEditor = (props: IProps) => {
 					placeholder='Введите название лекции'
 				/>
 				<div className='text-wrap h-[630px]'>
-					<textarea
-						className='resize-none bg-purple w-full h-full outline-none overflow-y-auto'
-						placeholder='Введите лекцию'
-						value={content}
-						onChange={e => setContent(e.currentTarget.value)}
-					/>
+					{/* @TODO: remove ts-ignore and fix type error  */}
+					{/* @ts-ignore */}
+					<MDEditor value={content} onChange={setContent} />
 				</div>
 			</div>
 			<div className='flex leading-[3px] text-[15px] self-end mt-[25px]'>
