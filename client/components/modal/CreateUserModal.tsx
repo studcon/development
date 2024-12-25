@@ -8,6 +8,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import Select, { StylesConfig } from 'react-select'
 import { Bounce, toast } from 'react-toastify'
 import Modal from './Modal'
+import { IUser } from '@/types/models/IUser'
 
 interface ICreateModal {
 	isModalOpen: boolean
@@ -16,15 +17,7 @@ interface ICreateModal {
 	setUpdate: Dispatch<SetStateAction<boolean>>
 }
 
-type FormData = {
-	name: string
-	surname: string
-	patronymic: string
-	login: string
-	password: string
-	group_id: number
-	role_id: number
-}
+type FormData = IUser & { password: string }
 
 const CreateUserModal = (props: ICreateModal) => {
 	const [formData, setFormData] = useState<FormData>({} as FormData)
@@ -75,7 +68,7 @@ const CreateUserModal = (props: ICreateModal) => {
 			console.log(res.data.message)
 			setGroups(res.data.message)
 			setGroupOptions(
-				res.data.message.map((g: IGroup) => ({ value: g.id, label: g.name }))
+				res.data.message.map((g: IGroup) => ({ value: g.id, label: g.name })),
 			)
 		})
 	}, [])
@@ -221,6 +214,16 @@ const CreateUserModal = (props: ICreateModal) => {
 							styles={selectStyles}
 							// defaultInputValue={roleOptions[0].label}
 							options={roleOptions}
+						/>
+
+						<label className='text-[25px] ml-2.5' htmlFor='descroption__input'>
+							Фото
+						</label>
+						<input
+							type='file'
+							onChange={e => {
+								setFormData({ ...formData, photo: e.target.value })
+							}}
 						/>
 					</form>
 				</div>

@@ -1,3 +1,6 @@
+> [!NOTE]
+> OFFICIAL TASKS
+
 # 23/12/2024
 
 - [x] breadcrumps for lectures and tests
@@ -10,8 +13,8 @@
 # 25/12/2024
 
 - [ ] implement work with files;
-
 - [ ] images in portfolio
+
 - [ ] interactive lectures(?) (questions inside lectures)
 - [ ] add participations to portfolio
 - [ ] add archive for previous years for student
@@ -20,3 +23,9 @@
 - [ ] test editing
 - [ ] fill up seeder with normal data
 - [ ] projects catalogue
+
+> [!NOTE]
+> MY TASKS
+
+- [ ] cache `useEffect`'s
+- [ ] implement proper validation
