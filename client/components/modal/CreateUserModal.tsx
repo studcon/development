@@ -17,10 +17,10 @@ interface ICreateModal {
 	setUpdate: Dispatch<SetStateAction<boolean>>
 }
 
-type FormData = IUser & { password: string }
+type FormState = Omit<IUser, 'photo'> & { password: string; photoFile: File } // doing photoFile separately to send it
 
 const CreateUserModal = (props: ICreateModal) => {
-	const [formData, setFormData] = useState<FormData>({} as FormData)
+	const [formState, setFormState] = useState<FormState>({} as FormState)
 	const [error, setError] = useState<any>(null)
 	const [groups, setGroups] = useState<any>(null)
 	const [groupOptions, setGroupOptions] = useState<any>(null)
@@ -41,6 +41,8 @@ const CreateUserModal = (props: ICreateModal) => {
 			...styles,
 			backgroundColor: '#0a0019',
 			border: 'none',
+			marginTop: '10px',
+			marginBottom: '20px',
 		}),
 
 		option: styles => ({
@@ -74,17 +76,18 @@ const CreateUserModal = (props: ICreateModal) => {
 	}, [])
 	function submitUser(e: any) {
 		e.preventDefault()
-		console.log(formData)
+		console.log(formState)
+		let formData = new FormData()
+		formData.append('name', formState.name)
+		formData.append('surname', formState.surname)
+		formData.append('patronymic', formState.patronymic)
+		formData.append('photo', formState.photoFile)
+		formData.append('login', formState.login)
+		formData.append('password', formState.password)
+		formData.append('role_id', formState.role_id.toString())
+		formData.append('group_id', formState.group_id.toString())
 		axiosInstance
-			.post('/admin/addUser', {
-				name: formData.name,
-				surname: formData.surname,
-				patronymic: formData.patronymic,
-				login: formData.login,
-				password: formData.password,
-				group_id: formData.group_id,
-				role_id: formData.role_id,
-			})
+			.post('/admin/addUser', formData)
 			.then(res => {
 				props.setUpdate(!props.update)
 				if (res.data.code != 200) {
@@ -126,7 +129,7 @@ const CreateUserModal = (props: ICreateModal) => {
 						</label>
 						<input
 							onInput={(e: any) => {
-								setFormData({ ...formData, name: e.target.value })
+								setFormState({ ...formState, name: e.target.value })
 							}}
 							type='text'
 							id='title__input'
@@ -140,7 +143,7 @@ const CreateUserModal = (props: ICreateModal) => {
 						</label>
 						<input
 							onInput={(e: any) => {
-								setFormData({ ...formData, surname: e.target.value })
+								setFormState({ ...formState, surname: e.target.value })
 							}}
 							type='text'
 							id='descroption__input'
@@ -154,7 +157,7 @@ const CreateUserModal = (props: ICreateModal) => {
 						</label>
 						<input
 							onInput={(e: any) => {
-								setFormData({ ...formData, patronymic: e.target.value })
+								setFormState({ ...formState, patronymic: e.target.value })
 							}}
 							type='text'
 							id='descroption__input'
@@ -168,7 +171,7 @@ const CreateUserModal = (props: ICreateModal) => {
 						</label>
 						<input
 							onInput={(e: any) => {
-								setFormData({ ...formData, login: e.target.value })
+								setFormState({ ...formState, login: e.target.value })
 							}}
 							type='text'
 							id='descroption__input'
@@ -182,7 +185,7 @@ const CreateUserModal = (props: ICreateModal) => {
 						</label>
 						<input
 							onInput={(e: any) => {
-								setFormData({ ...formData, password: e.target.value })
+								setFormState({ ...formState, password: e.target.value })
 							}}
 							type='password'
 							id='descroption__input'
@@ -197,7 +200,7 @@ const CreateUserModal = (props: ICreateModal) => {
 						<Select
 							onChange={(e: any) => {
 								console.log(e)
-								setFormData({ ...formData, group_id: e.value })
+								setFormState({ ...formState, group_id: e.value })
 							}}
 							styles={selectStyles}
 							// defaultValue={groupOptions[0]}
@@ -209,7 +212,7 @@ const CreateUserModal = (props: ICreateModal) => {
 						<Select
 							onChange={(e: any) => {
 								console.log(e)
-								setFormData({ ...formData, role_id: e.value })
+								setFormState({ ...formState, role_id: e.value })
 							}}
 							styles={selectStyles}
 							// defaultInputValue={roleOptions[0].label}
@@ -219,10 +222,21 @@ const CreateUserModal = (props: ICreateModal) => {
 						<label className='text-[25px] ml-2.5' htmlFor='descroption__input'>
 							Фото
 						</label>
+						<label
+							htmlFor='photo__input'
+							className='block w-fit h-fit mt-[10px] mb-[20px] bg-lightPurple rounded-[22px] py-[14px] px-[35px] hover:bg-buttonsHover hover:transition-[0.3s] transition-[0.3s]'
+						>
+							<span className='text-[20px] font-regular'>
+								{formState.photoFile?.name || 'Выбрать фото'}
+							</span>
+						</label>
 						<input
+							id='photo__input'
 							type='file'
+							className='hidden'
+							accept='image/*'
 							onChange={e => {
-								setFormData({ ...formData, photo: e.target.value })
+								setFormState({ ...formState, photoFile: e.target.files![0] })
 							}}
 						/>
 					</form>

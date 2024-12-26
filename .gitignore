@@ -54,3 +54,5 @@
 **/.fleet
 **/.idea
 **/.vscode
+# @TODO: remove on production
+server/public/avatars
