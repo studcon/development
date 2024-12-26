@@ -3,12 +3,14 @@
 import { IGroup } from '@/types/models/IGroup'
 import axiosInstance from '@/utils/axiosInstance'
 import { AxiosError } from 'axios'
-import { useRouter } from 'next/navigation'
+import defaultAvatar from '/assets/avatar.png'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import Select, { StylesConfig } from 'react-select'
 import { Bounce, toast } from 'react-toastify'
 import Modal from './Modal'
 import { IUser } from '@/types/models/IUser'
+import Image from 'next/image'
+import { AVATARS_URL } from '@/constants'
 
 interface ICreateModal {
 	isModalOpen: boolean
@@ -22,8 +24,9 @@ type FormState = Omit<IUser, 'photo'> & { password: string; photoFile: File } //
 const CreateUserModal = (props: ICreateModal) => {
 	const [formState, setFormState] = useState<FormState>({} as FormState)
 	const [error, setError] = useState<any>(null)
+	// @TODO: refactor: do we even need groupOptions if we have groups?
 	const [groups, setGroups] = useState<any>(null)
-	const [groupOptions, setGroupOptions] = useState<any>(null)
+	const [groupOptions, setGroupOptions] = useState<IGroup[]>([])
 	const roleOptions = [
 		{ value: 1, label: 'Студент' },
 		{ value: 2, label: 'Преподаватель' },
@@ -64,7 +67,6 @@ const CreateUserModal = (props: ICreateModal) => {
 		}),
 	}
 
-	const router = useRouter()
 	useEffect(() => {
 		axiosInstance.get('/admin/getGroups').then(res => {
 			console.log(res.data.message)
@@ -222,6 +224,20 @@ const CreateUserModal = (props: ICreateModal) => {
 						<label className='text-[25px] ml-2.5' htmlFor='descroption__input'>
 							Фото
 						</label>
+
+						<div className='mt-[10px] mb-[20px]'>
+							<Image
+								src={
+									formState.photoFile
+										? URL.createObjectURL(formState.photoFile)
+										: defaultAvatar
+								}
+								className='rounded-[10px]'
+								width={180}
+								height={180}
+								alt='avatar'
+							/>
+						</div>
 						<label
 							htmlFor='photo__input'
 							className='block w-fit h-fit mt-[10px] mb-[20px] bg-lightPurple rounded-[22px] py-[14px] px-[35px] hover:bg-buttonsHover hover:transition-[0.3s] transition-[0.3s]'
