@@ -13,11 +13,14 @@
 # 26/12/2024
 
 - [x] images are displayed
-- [ ] images can be added
+- [x] images can be added
+
+# 27/12/2024
+
 - [ ] images in portfolio
+- [ ] add participations to portfolio
 
 - [ ] interactive lectures(?) (questions inside lectures)
-- [ ] add participations to portfolio
 - [ ] add archive for previous years for student
 - [ ] dropdown topic instead of separate page
 - [ ] group news
