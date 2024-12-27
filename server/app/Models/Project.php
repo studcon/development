@@ -13,6 +13,8 @@ class Project extends Model
         'title',
         'description',
         'url',
+        'type',
+        'image',
         'user_id',
     ];
 }

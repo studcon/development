@@ -3,10 +3,16 @@
 import axiosInstance from '@/utils/axiosInstance'
 import { AxiosError } from 'axios'
 import Cookies from 'js-cookie'
+import defaultImage from '@/assets/defaultImage.png'
+import Select, { StylesConfig } from 'react-select'
 import { useRouter } from 'next/navigation'
 import { Dispatch, FormEvent, SetStateAction, useState } from 'react'
 import { Bounce, toast } from 'react-toastify'
 import Modal from './Modal'
+import { IProject } from '@/types/models/IProject'
+import Image from 'next/image'
+import { selectStyles } from '@/constants'
+
 interface ICreateModal {
 	isModalOpen: boolean
 	setModalOpen: Dispatch<SetStateAction<boolean>>
@@ -14,25 +20,23 @@ interface ICreateModal {
 	setUpdate: Dispatch<SetStateAction<boolean>>
 }
 
-type FormData = {
-	title: string
-	description: string
-	url: string
-}
+type FormState = Omit<IProject, 'id' | 'image'> & { imageFile: File }
 
 const CreateProjectModal = (props: ICreateModal) => {
-	const [formData, setFormData] = useState<FormData>({} as FormData)
+	const [formState, setFormState] = useState<FormState>({} as FormState)
 	const [error, setError] = useState<any>(null)
 	const router = useRouter()
 	function submitProject(e: any) {
 		e.preventDefault()
+		const formData = new FormData()
+		formData.append('title', formState.title)
+		formData.append('description', formState.description)
+		formData.append('url', formState.url)
+		formData.append('type', formState.type)
+		formData.append('image', formState.imageFile)
+		formData.append('user_id', Cookies.get('user_id')!)
 		axiosInstance
-			.post('/project/addProject', {
-				title: formData.title,
-				description: formData.description,
-				url: formData.url,
-				user_id: Cookies.get('user_id'),
-			})
+			.post('/project/addProject', formData)
 			.then(res => {
 				props.setUpdate(!props.update)
 				if (res.data.code != 200) {
@@ -52,7 +56,6 @@ const CreateProjectModal = (props: ICreateModal) => {
 					console.log(res)
 					router.refresh()
 				}
-				// window.location.reload()
 			})
 			.catch((err: AxiosError) => {
 				console.log(err)
@@ -72,7 +75,7 @@ const CreateProjectModal = (props: ICreateModal) => {
 						</label>
 						<input
 							onInput={(e: any) => {
-								setFormData({ ...formData, title: e.target.value })
+								setFormState({ ...formState, title: e.target.value })
 							}}
 							type='text'
 							id='title__input'
@@ -86,7 +89,7 @@ const CreateProjectModal = (props: ICreateModal) => {
 						</label>
 						<input
 							onInput={(e: any) => {
-								setFormData({ ...formData, description: e.target.value })
+								setFormState({ ...formState, description: e.target.value })
 							}}
 							type='text'
 							id='descroption__input'
@@ -94,18 +97,34 @@ const CreateProjectModal = (props: ICreateModal) => {
 							className='h-[60px] w-full text-[25px] px-[15px] py-[10px] mt-[10px] mb-[20px] rounded-[10px] bg-white text-black'
 							required
 						/>
+
+						<label className='text-[25px] ml-2.5' htmlFor='descroption__input'>
+							Тип проекта
+						</label>
+
+						<Select
+							onChange={(e: any) => {
+								console.log(e)
+								setFormState({ ...formState, type: e.value })
+							}}
+							styles={selectStyles}
+							options={[
+								{ label: 'Project', value: 'project' },
+								{ label: 'Participation', value: 'participation' },
+							]}
+						/>
 						<label className='text-[25px] ml-2.5' htmlFor='description__input'>
 							Ссылка на проект
 						</label>
 						<input
 							onInput={(e: FormEvent<HTMLInputElement>) => {
 								if (!e.currentTarget.value.includes('http')) {
-									setFormData({
-										...formData,
+									setFormState({
+										...formState,
 										url: 'https://' + e.currentTarget.value,
 									})
 								} else {
-									setFormData({ ...formData, url: e.currentTarget.value })
+									setFormState({ ...formState, url: e.currentTarget.value })
 								}
 							}}
 							type='text'
@@ -113,6 +132,41 @@ const CreateProjectModal = (props: ICreateModal) => {
 							maxLength={300}
 							className='h-[60px] w-full text-[25px] px-[15px] py-[10px] mt-[10px] mb-[20px] rounded-[10px] bg-white text-black'
 							required
+						/>
+
+						<label className='text-[25px] ml-2.5' htmlFor='descroption__input'>
+							Изображение
+						</label>
+
+						<div className='mt-[10px] mb-[20px]'>
+							<Image
+								src={
+									formState.imageFile
+										? URL.createObjectURL(formState.imageFile)
+										: defaultImage
+								}
+								className='rounded-[10px]'
+								width={180}
+								height={180}
+								alt='avatar'
+							/>
+						</div>
+						<label
+							htmlFor='photo__input'
+							className='block w-fit h-fit mt-[10px] mb-[20px] bg-lightPurple rounded-[22px] py-[14px] px-[35px] hover:bg-buttonsHover hover:transition-[0.3s] transition-[0.3s]'
+						>
+							<span className='text-[20px] font-regular'>
+								{formState.imageFile?.name || 'Выбрать картинку'}
+							</span>
+						</label>
+						<input
+							id='photo__input'
+							type='file'
+							className='hidden'
+							accept='image/*'
+							onChange={e => {
+								setFormState({ ...formState, imageFile: e.target.files![0] })
+							}}
 						/>
 					</form>
 				</div>

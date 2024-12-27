@@ -5,6 +5,7 @@ import { AxiosError } from 'axios'
 import { useEffect, useState } from 'react'
 import Project from './Project'
 import CreateProjectModal from '@/components/modal/CreateProjectModal'
+import { IProject } from '@/types/models/IProject'
 
 const Projects = () => {
 	const [isModalCreateOpen, setModalCreateOpen] = useState(false)
@@ -42,13 +43,10 @@ const Projects = () => {
 				<div>
 					{!data && 'Загрузка...'}
 					{data &&
-						data.map((p: any) => (
+						data.map((p: IProject) => (
 							<Project
+								project={p}
 								key={p.id}
-								id={p.id}
-								title={p.title}
-								description={p.description}
-								url={p.url}
 								resetIndicator={resetIndicator}
 								setResetIndicator={setResetIndicator}
 								setUpdate={setUpdate}

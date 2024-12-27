@@ -1,20 +1,19 @@
 import ContextMenu from '@/components/ContextMenu'
 import UpdateProjectModal from '@/components/modal/UpdateProjectModal'
+import { PROJECTS_URL } from '@/constants'
+import { IProject } from '@/types/models/IProject'
+import Image from 'next/image'
+import defautImage from '@/assets/defaultImage.png'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
-interface IProject {
-	id: number
-	title: string
-	description: string
-	url: string
-	update: boolean
-	setUpdate: Dispatch<SetStateAction<boolean>>
-}
-type AddProps = {
+type Props = {
 	resetIndicator: boolean
 	setResetIndicator: Dispatch<SetStateAction<boolean>>
+	update: boolean
+	setUpdate: Dispatch<SetStateAction<boolean>>
+	project: IProject
 }
-const Project = (props: IProject & AddProps) => {
+const Project = (props: Props) => {
 	const [isUpdateModalOpen, setIsUpdateModalOpen] = useState<boolean>(false)
 	const [clicked, setIsClicked] = useState<boolean>(false)
 	const [points, setPoints] = useState({
@@ -25,6 +24,7 @@ const Project = (props: IProject & AddProps) => {
 	useEffect(() => {
 		const handleClick = () => setIsClicked(false)
 		window.addEventListener('click', handleClick)
+		console.log(props.project.image)
 		return () => {
 			window.removeEventListener('click', handleClick)
 		}
@@ -45,19 +45,30 @@ const Project = (props: IProject & AddProps) => {
 				<ContextMenu
 					resetIndicator={props.resetIndicator}
 					setResetIndicator={props.setResetIndicator}
-					projectId={props.id}
+					projectId={props.project.id}
 					points={points}
 					setModalOpen={setIsUpdateModalOpen}
 				/>
 			)}
 			<div className='max-w-[835px]'>
-				<h2 className='text-[23px] mb-[10px]'>{props.title}</h2>
-				<p className='text-[15px]'>{props.description}</p>
+				<h2 className='text-[23px] mb-[10px]'>{props.project.title}</h2>
+				<p className='text-[15px] mb-[10px]'>{props.project.description}</p>
+				{props.project.image && (
+					<div>
+						<Image
+							className='rounded-[10px]'
+							src={PROJECTS_URL + props.project.image}
+							width={100}
+							height={100}
+							alt={props.project.title + ' image'}
+						/>
+					</div>
+				)}
 			</div>
 			<div className='flex items-end'>
 				<a
 					className='bg-lightPurple hover:bg-buttonsHover hover:transition-[0.3s] transition-[0.3s] rounded-[22px] py-[10px] px-[35px]'
-					href={props.url}
+					href={props.project.url}
 					target='_blank'
 				>
 					<span className='text-[15px] font-regular'>Перейти</span>
@@ -66,7 +77,7 @@ const Project = (props: IProject & AddProps) => {
 			<UpdateProjectModal
 				isModalOpen={isUpdateModalOpen}
 				setModalOpen={setIsUpdateModalOpen}
-				projectId={props.id}
+				projectId={props.project.id}
 				update={props.update}
 				setUpdate={props.setUpdate}
 			/>

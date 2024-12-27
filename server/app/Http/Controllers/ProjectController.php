@@ -16,7 +16,17 @@ class ProjectController extends Controller
 
     function addProject(Request $request)
     {
-        Project::create($request->all());
+        // dd($request->all());
+        $request->merge(['user_id' => $request->header('user_id')]);
+        $project = Project::create($request->except('image'));
+        // upload a photo
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) . '_' . time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('/projects'), $filename);
+            $project->image = $filename;
+            $project->save();
+        }
         return ['code' => 201, 'message' => 'Успешно создано'];
     }
 

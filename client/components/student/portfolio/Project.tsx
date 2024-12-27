@@ -1,18 +1,16 @@
 import ContextMenu from '@/components/ContextMenu'
 import UpdateProjectModal from '@/components/modal/UpdateProjectModal'
+import { PROJECTS_URL } from '@/constants'
+import defaultImage from '@/assets/defaultImage.png'
+import { IProject } from '@/types/models/IProject'
+import Image from 'next/image'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
-interface IProject {
-	id: number
-	title: string
-	description: string
-	url: string
-	update: boolean
-	setUpdate: Dispatch<SetStateAction<boolean>>
-}
 type AddProps = {
 	resetIndicator: boolean
 	setResetIndicator: Dispatch<SetStateAction<boolean>>
+	update: boolean
+	setUpdate: Dispatch<SetStateAction<boolean>>
 }
 const Project = (props: IProject & AddProps) => {
 	const [isUpdateModalOpen, setIsUpdateModalOpen] = useState<boolean>(false)
@@ -52,7 +50,15 @@ const Project = (props: IProject & AddProps) => {
 			)}
 			<div className='max-w-[835px]'>
 				<h2 className='text-[23px] mb-[10px]'>{props.title}</h2>
-				<p className='text-[15px]'>{props.description}</p>
+				<p className='text-[15px] mb-[10px]'>{props.description}</p>
+				<div>
+					<Image
+						src={defaultImage}
+						width={180}
+						height={180}
+						alt={props.title + ' image'}
+					/>
+				</div>
 			</div>
 			<div className='flex items-end'>
 				<a
