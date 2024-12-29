@@ -19,7 +19,7 @@ class ProjectController extends Controller
         // dd($request->all());
         $request->merge(['user_id' => $request->header('user_id')]);
         $project = Project::create($request->except('image'));
-        // upload a photo
+        // upload an image
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $filename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) . '_' . time() . '.' . $file->getClientOriginalExtension();
@@ -35,9 +35,21 @@ class ProjectController extends Controller
         return Project::find($project_id);
     }
 
-    function updateProject(Request $request, $project_id)
+    function updateProject(Request $request, $id_project)
     {
-        Project::find($project_id)->update($request->all());
+        // dd($request->all());
+        $project = Project::find($id_project);
+        // upload an image
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) . '_' . time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('/projects'), $filename);
+            $project->image = $filename;
+            $project->save();
+        }
+
+        $project->update($request->except('image'));
+
         return ['code' => 201, 'message' => 'Успешно изменено'];
     }
 

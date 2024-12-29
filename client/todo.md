@@ -19,7 +19,7 @@
 
 - [x] images in portfolio
 - [ ] add participations to portfolio (incomplete)
-- [ ] implement project update
+- [x] implement project update
 - [ ] move Projects component to separate folder (out of `teacher/`)
 
 - [ ] interactive lectures(?) (questions inside lectures)
