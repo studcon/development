@@ -18,9 +18,9 @@
 # 27/12/2024
 
 - [x] images in portfolio
-- [ ] add participations to portfolio (incomplete)
+- [x] add participations to portfolio (incomplete)
 - [x] implement project update
-- [ ] move Projects component to separate folder (out of `teacher/`)
+- [x] move Projects component to separate folder (out of `teacher/`)
 
 - [ ] interactive lectures(?) (questions inside lectures)
 - [ ] add archive for previous years for student
