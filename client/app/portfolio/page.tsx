@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import arrow from '/assets/arrow.png'
-import Projects from '@/components/teacher/portfolio/Projects'
+import Projects from '@/components/portfolio/Projects'
 
 const Portfolio = () => {
 	return (
