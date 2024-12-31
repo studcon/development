@@ -22,6 +22,10 @@
 - [x] implement project update
 - [x] move Projects component to separate folder (out of `teacher/`)
 
+# 31/12/2024
+
+- [x] fix `updateUser`
+
 - [ ] interactive lectures(?) (questions inside lectures)
 - [ ] add archive for previous years for student
 - [ ] dropdown topic instead of separate page

@@ -43,12 +43,25 @@ class AdminController extends Controller
         return ['code' => 200, 'message' => Subject::find($id_subject)];
     }
 
-    function updateUser(Request $request)
+    function updateUser(Request $request, $id_user)
     {
         if ($request->has('password')) {
             $request->merge(['password' => Hash::make($request->password)]);
         }
-        return ['code' => 200, 'message' => User::find($request->id)->update($request->all())];
+        $user = User::find($id_user);
+        // upload a photo
+        if ($request->hasFile('photo')) {
+            $file = $request->file('photo');
+            $filename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) . '_' . time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('/avatars'), $filename);
+            $user->photo = $filename;
+            $user->save();
+        }
+
+        $user->update($request->except('photo'));
+        // dd($request->all());
+        // dd($user);
+        return ['code' => 200, 'message' => 'Успешно изменено'];
     }
 
     function updateGroup(Request $request)

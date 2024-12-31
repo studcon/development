@@ -58,6 +58,7 @@ Route::controller(TopicController::class)->prefix('/topic')->group(function () {
     Route::get('/getTest/{test_id}', 'getTest');
     Route::post('/addLecture', 'addLecture');
     Route::post('/addTest', 'addTest');
+    // @FIXME: udpates should be 'put'
     Route::put('/updateLecture/{lecture_id}', 'updateLecture');
     Route::delete('/deleteTest/{test_id}', 'deleteTest');
     Route::delete('/deleteLecture/{lecture_id}', 'deleteLecture');
@@ -76,7 +77,7 @@ Route::controller(AdminController::class)->prefix('/admin')->group(function () {
     Route::get('/getGroup/{id_group}', 'getGroup');
     Route::get('/getSubjects', 'getSubjects');
     Route::get('/getSubject/{id_subject}', 'getSubject');
-    Route::put('/updateUser', 'updateUser');
+    Route::post('/updateUser/{id_user}', 'updateUser');
     Route::put('/updateGroup', 'updateGroup');
     Route::put('/updateSubject', 'updateSubject');
     Route::post('/addUser', 'addUser');
