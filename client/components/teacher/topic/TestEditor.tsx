@@ -57,7 +57,7 @@ const TestEditor = (props: IProps) => {
          questions,
       })
       props.getMaterials()
-      props.setTestCreateOpen(false)
+      props.setTestUpdateOpen(false)
    }
    useEffect(() => {
       console.log('test editor props')

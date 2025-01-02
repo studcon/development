@@ -144,6 +144,22 @@ class TopicController extends Controller
         return ['code' => 410, 'message' => Lecture::find($lecture_id)->delete()];
     }
 
+    function updateTest($test_id, Request $request)
+    {
+        $test = Test::find($test_id);
+
+        $test->update($request->all());
+
+        $test->only(['id', 'title']);
+        $questions = Question::where('test_id', $test_id)->get();
+        $result = [];
+        foreach ($questions as $question) {
+            array_push($result, ['id' => $question->id, 'title' => $question->title, 'answers' => Answer::where('question_id', $question->id)->get()]);
+        }
+
+        return ['code' => 200, 'message' => ['test' => $test, 'questions' => $result]];
+    }
+
     function deleteTest($test_id)
     {
         return ['code' => 410, 'message' => Test::find($test_id)->delete()];

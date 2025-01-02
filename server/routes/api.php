@@ -60,6 +60,7 @@ Route::controller(TopicController::class)->prefix('/topic')->group(function () {
     Route::post('/addTest', 'addTest');
     // @FIXME: udpates should be 'put'
     Route::put('/updateLecture/{lecture_id}', 'updateLecture');
+    Route::post('/updateTest/{test_id}', 'updateTest');
     Route::delete('/deleteTest/{test_id}', 'deleteTest');
     Route::delete('/deleteLecture/{lecture_id}', 'deleteLecture');
     Route::get('/getMark/{test_id}', 'getMark');
