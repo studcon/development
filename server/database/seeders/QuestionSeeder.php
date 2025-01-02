@@ -14,7 +14,7 @@ class QuestionSeeder extends Seeder
     public function run(): void
     {
         DB::table('questions')->insert([
-            'title' => fake()->title,
+            'title' => fake()->words(3, true),
             'test_id' => 1,
         ]);
     }

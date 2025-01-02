@@ -14,7 +14,7 @@ class TestSeeder extends Seeder
     public function run(): void
     {
         DB::table('tests')->insert([
-            'title' => fake()->title,
+            'title' => fake()->words(3, true),
             'topic_id' => 1
         ]);
     }
