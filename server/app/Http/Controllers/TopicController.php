@@ -146,14 +146,28 @@ class TopicController extends Controller
 
     function updateTest($test_id, Request $request)
     {
+        // dd($request->input('questions')[0]['answers'][0]);
         $test = Test::find($test_id);
 
         $test->update($request->all());
 
         $test->only(['id', 'title']);
         $questions = Question::where('test_id', $test_id)->get();
+        $newAnswer = null;
+        foreach ($questions as $q_idx => $question) {
+            $question->update($request->input('questions')[$q_idx]);
+
+            $answers = Answer::where('quesiton_id', $question->id)->get();
+            foreach ($answers as $a_idx => $answer) {
+                $newAnswer = $request->input('questions')[$q_idx]['answers'][$a_idx];
+                // @FIXME: fix updating answer
+                $answer->update($newAnswer);
+            }
+        }
+        // dd($questions);
         $result = [];
         foreach ($questions as $question) {
+            // dd($question);
             array_push($result, ['id' => $question->id, 'title' => $question->title, 'answers' => Answer::where('question_id', $question->id)->get()]);
         }
 

@@ -190,7 +190,7 @@ const Topic = () => {
                      />
                   ) : isTestCreateOpen ? (
                      <TestEditor
-                        test_id={null}
+                        test_id={0}
                         topic_id={+params.id}
                         setTestCreateOpen={setTestCreateOpen}
                         setTestUpdateOpen={setTestUpdateOpen}

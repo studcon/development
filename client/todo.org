@@ -31,7 +31,10 @@
 - [ ] add archive for previous years for student
 - [ ] dropdown topic instead of separate page
 - [ ] group news
-- [ ] test editing
+- [-] test editing
+  - [X] edit button
+  - [X] edit questions
+  - [ ] edit answers
 - [ ] fill up seeder with normal data
 - [ ] projects catalogue
 

@@ -7,7 +7,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
 interface IProps {
-   test_id: number | null // nullable for create only used in update (indicator of update)
+   test_id: number // indicator of update ("0" used for create)
    topic_id: number
    setTestCreateOpen: Dispatch<SetStateAction<boolean>>
    setTestUpdateOpen: Dispatch<SetStateAction<boolean>>
@@ -51,6 +51,13 @@ const TestEditor = (props: IProps) => {
       props.setTestCreateOpen(false)
    }
    const updateTest = () => {
+      console.log('update test body')
+      console.log({
+         title: title,
+         topic_id: props.topic_id,
+         questions,
+      })
+
       axiosInstance.post(`/topic/updateTest/${props.test_id}`, {
          title: title,
          topic_id: props.topic_id,
