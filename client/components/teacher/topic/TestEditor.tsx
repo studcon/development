@@ -106,6 +106,7 @@ const TestEditor = (props: IProps) => {
                               type='text'
                               className='bg-background w-full text-[18] h-[40px] px-[10px] rounded-[10px] outline-none'
                               placeholder='Введите вопрос'
+                              defaultValue={question.title}
                               onChange={input => {
                                  const items: IQuestion[] = questions.map((item: any) =>
                                     item.id === question.id
@@ -128,6 +129,7 @@ const TestEditor = (props: IProps) => {
                                           type='text'
                                           className='text-[15px] h-[35px] w-[470px] px-[10px] rounded-[10px] outline-none bg-background'
                                           placeholder='Введите ответ'
+                                          defaultValue={answer.title}
                                           onChange={input => {
                                              const items = question.answers.map((item: any) =>
                                                 item.id === answer.id
@@ -269,7 +271,7 @@ const TestEditor = (props: IProps) => {
             </button>
             <button
                className='bg-lightPurple transition-[0.3s] hover:bg-buttonsHover hover:transition-[0.3s] w-[130px] h-[45px] flex justify-center items-center rounded-[22px] mr-[10px]'
-               onClick={() => addTest()}
+               onClick={() => props.test_id > 0 ? updateTest() : addTest()}
             >
                Сохранить
             </button>
