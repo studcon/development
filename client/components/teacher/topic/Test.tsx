@@ -14,6 +14,7 @@ interface IProps {
    getMaterials: () => void
    isTestUpdateOpen: boolean
    setTestUpdateOpen: Dispatch<SetStateAction<boolean>>
+   setTestUpdateId: Dispatch<SetStateAction<number>>
 }
 
 const Test = (props: IProps) => {
@@ -42,6 +43,7 @@ const Test = (props: IProps) => {
    }
    const updateTest = () => {
       props.setTestUpdateOpen(true)
+      props.setTestUpdateId(props.test.id)
    }
    return (
       <>

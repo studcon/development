@@ -22,6 +22,7 @@ const Topic = () => {
    const [lectionUpdate, setLectionUpdate] = useState(null)
    const [isTestCreateOpen, setTestCreateOpen] = useState<boolean>(false)
    const [isTestUpdateOpen, setTestUpdateOpen] = useState<boolean>(false)
+   const [testUpdateId, setTestUpdateId] = useState<number>(0)
    const [topic, setTopic] = useState<any>(null)
    const [error, setError] = useState<AxiosError | null>(null)
    const [tabs, setTabs] = useState<React.JSX.Element[]>([])
@@ -53,7 +54,7 @@ const Topic = () => {
             res.data.message.tests.forEach((test: ITest) => {
                setTabs(tabs => [
                   ...tabs,
-                  <Test getMaterials={getMaterials} test={test} isTest={true} isTestUpdateOpen={isTestUpdateOpen} setTestUpdateOpen={setTestUpdateOpen} />,
+                  <Test setTestUpdateId={setTestUpdateId} getMaterials={getMaterials} test={test} isTest={true} isTestUpdateOpen={isTestUpdateOpen} setTestUpdateOpen={setTestUpdateOpen} />,
                ])
             })
          })
@@ -189,15 +190,19 @@ const Topic = () => {
                      />
                   ) : isTestCreateOpen ? (
                      <TestEditor
+                        test_id={null}
                         topic_id={+params.id}
                         setTestCreateOpen={setTestCreateOpen}
+                        setTestUpdateOpen={setTestUpdateOpen}
                         getMaterials={getMaterials}
                      />
                   ) :
                      isTestUpdateOpen ? (
                         <TestEditor
+                           test_id={testUpdateId}
                            topic_id={+params.id}
                            setTestCreateOpen={setTestCreateOpen}
+                           setTestUpdateOpen={setTestUpdateOpen}
                            getMaterials={getMaterials}
 
                         />
