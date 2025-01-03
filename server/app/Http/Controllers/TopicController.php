@@ -133,7 +133,7 @@ class TopicController extends Controller
         foreach ($request->questions as $question) {
             $questionCreate = Question::create(['title' => $question['title'], 'test_id' => $test->id]);
             foreach ($question['answers'] as $answer) {
-                Answer::create(['title' => $answer['title'], 'correct' => $answer['isCorrect'], 'question_id' => $questionCreate->id]);
+                Answer::create(['title' => $answer['title'], 'correct' => $answer['correct'], 'question_id' => $questionCreate->id]);
             }
         }
         return ['code' => 201, 'message' => 'Создано'];
@@ -146,11 +146,23 @@ class TopicController extends Controller
 
 function updateTest($test_id, Request $request)
 {
+    // dd($request->all());
     $test = Test::find($test_id);
 
-    $test->update($request->all());
-
     $questions = Question::where('test_id', $test_id)->get();
+
+    // Add new questions
+    $existingQuestionIds = $questions->pluck('id')->toArray();
+    foreach ($request->input('questions') as $newQuestionData) {
+        if (!in_array($newQuestionData['id'], $existingQuestionIds)) {
+            Question::create([
+                'title' => $newQuestionData['title'],
+                'test_id' => $test_id,
+            ]);
+        }
+    }
+
+
 
     foreach ($questions as $q_idx => $question) {
         $question->update($request->input('questions')[$q_idx]);
@@ -180,6 +192,10 @@ function updateTest($test_id, Request $request)
             }
         }
     }
+
+    // Update test title
+     $test->update(['title' => $request->input('title')]);
+
 
     // Prepare result array
     $result = [];

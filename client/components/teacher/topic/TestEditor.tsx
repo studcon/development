@@ -20,7 +20,7 @@ interface IQuestion {
    answers: {
       id: string
       title: string
-      isCorrect: boolean
+      correct: boolean
    }[]
 }
 
@@ -34,7 +34,7 @@ const TestEditor = (props: IProps) => {
             {
                id: uuidv4(),
                title: '',
-               isCorrect: true,
+               correct: true,
             },
          ],
       },
@@ -202,7 +202,7 @@ const TestEditor = (props: IProps) => {
                                        className='cursor-pointer'
                                        onClick={() => {
                                           question.answers.length > 1 &&
-                                             answer.isCorrect == false
+                                             answer.correct == false
                                              ? setQuestions(
                                                 questions.map(item =>
                                                    item.id == question.id
@@ -235,7 +235,7 @@ const TestEditor = (props: IProps) => {
                                                 answer: item.answers.push({
                                                    id: uuidv4(),
                                                    title: '',
-                                                   isCorrect: false,
+                                                   correct: false,
                                                 }),
                                              }
                                              : item
@@ -267,7 +267,7 @@ const TestEditor = (props: IProps) => {
                            {
                               id: uuidv4(),
                               title: '',
-                              isCorrect: true,
+                              correct: true,
                            },
                         ],
                      },

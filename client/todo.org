@@ -1,6 +1,6 @@
 *OFFICIAL TASKS*
 
-* TODO [52%]
+* TODO [57%]
 
 # 23/12/2024
 
@@ -31,9 +31,9 @@
 - [ ] add archive for previous years for student
 - [ ] dropdown topic instead of separate page
 - [ ] group news
-- [-] test editing
+- [X] test editing
   - [X] edit button
-  - [ ] add questions
+  - [X] add questions
   - [X] edit questions
   - [X] edit answers
   - [X] add answers
