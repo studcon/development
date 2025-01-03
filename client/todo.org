@@ -33,9 +33,11 @@
 - [ ] group news
 - [-] test editing
   - [X] edit button
+  - [ ] add questions
   - [X] edit questions
-  - [ ] edit answers
-- [ ] fill up seeder with normal data
+  - [X] edit answers
+  - [X] add answers
+- [ ] fill up seeder with actual data
 - [ ] projects catalogue
 
 *MY TASKS*

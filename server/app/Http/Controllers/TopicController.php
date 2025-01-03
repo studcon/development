@@ -156,12 +156,17 @@ class TopicController extends Controller
         $newAnswer = null;
         foreach ($questions as $q_idx => $question) {
             $question->update($request->input('questions')[$q_idx]);
-
-            $answers = Answer::where('quesiton_id', $question->id)->get();
+            $answers = Answer::where('question_id', $question->id)->get();
+            // dd($answers);
             foreach ($answers as $a_idx => $answer) {
                 $newAnswer = $request->input('questions')[$q_idx]['answers'][$a_idx];
-                // @FIXME: fix updating answer
-                $answer->update($newAnswer);
+                $answer->update(
+                    [
+                        'title' => $newAnswer['title'],
+                        'correct' => $newAnswer['correct'],
+                    ]
+                );
+
             }
         }
         // dd($questions);
