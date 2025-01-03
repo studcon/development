@@ -144,40 +144,58 @@ class TopicController extends Controller
         return ['code' => 410, 'message' => Lecture::find($lecture_id)->delete()];
     }
 
-    function updateTest($test_id, Request $request)
-    {
-        // dd($request->input('questions')[0]['answers'][0]);
-        $test = Test::find($test_id);
+function updateTest($test_id, Request $request)
+{
+    $test = Test::find($test_id);
 
-        $test->update($request->all());
+    $test->update($request->all());
 
-        $test->only(['id', 'title']);
-        $questions = Question::where('test_id', $test_id)->get();
-        $newAnswer = null;
-        foreach ($questions as $q_idx => $question) {
-            $question->update($request->input('questions')[$q_idx]);
-            $answers = Answer::where('question_id', $question->id)->get();
-            // dd($answers);
-            foreach ($answers as $a_idx => $answer) {
-                $newAnswer = $request->input('questions')[$q_idx]['answers'][$a_idx];
-                $answer->update(
-                    [
-                        'title' => $newAnswer['title'],
-                        'correct' => $newAnswer['correct'],
-                    ]
-                );
+    $questions = Question::where('test_id', $test_id)->get();
 
+    foreach ($questions as $q_idx => $question) {
+        $question->update($request->input('questions')[$q_idx]);
+
+        $answers = Answer::where('question_id', $question->id)->get();
+
+        // Process existing answers
+        foreach ($answers as $a_idx => $answer) {
+            $newAnswer = $request->input('questions')[$q_idx]['answers'][$a_idx];
+            if ($newAnswer['id'] === $answer->id) {
+                $answer->update([
+                    'title' => $newAnswer['title'],
+                    'correct' => $newAnswer['correct'],
+                ]);
             }
         }
-        // dd($questions);
-        $result = [];
-        foreach ($questions as $question) {
-            // dd($question);
-            array_push($result, ['id' => $question->id, 'title' => $question->title, 'answers' => Answer::where('question_id', $question->id)->get()]);
-        }
 
-        return ['code' => 200, 'message' => ['test' => $test, 'questions' => $result]];
+        // Add new answers
+        $existingAnswerIds = $answers->pluck('id')->toArray();
+        foreach ($request->input('questions')[$q_idx]['answers'] as $newAnswer) {
+            if (!in_array($newAnswer['id'], $existingAnswerIds)) {
+                Answer::create([
+                    'title' => $newAnswer['title'],
+                    'correct' => $newAnswer['correct'],
+                    'question_id' => $question->id,
+                ]);
+            }
+        }
     }
+
+    // Prepare result array
+    $result = [];
+    foreach ($questions as $question) {
+        $result[] = [
+            'id' => $question->id,
+            'title' => $question->title,
+            'answers' => Answer::where('question_id', $question->id)->get()
+        ];
+    }
+
+    return ['code' => 200, 'message' => ['test' => $test, 'questions' => $result]];
+}
+
+
+
 
     function deleteTest($test_id)
     {
