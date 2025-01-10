@@ -1,6 +1,6 @@
 *OFFICIAL TASKS*
 
-* TODO [57%]
+* TODO [63%]
 
 # 23/12/2024
 
@@ -29,7 +29,7 @@
 
 - [ ] interactive lectures(?) (questions inside lectures)
 - [ ] add archive for previous years for student
-- [ ] dropdown topic instead of separate page
+- [X] dropdown topic instead of separate page
 - [ ] group news
 - [X] test editing
   - [X] edit button
