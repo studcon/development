@@ -120,6 +120,11 @@ class AdminController extends Controller
         return ['code' => 200, 'message' => News::all()];
     }
 
+    function getNewsByGroup($group_id)
+    {
+        return ['code' => 200, 'message' => News::where('group_id', $group_id)->get()];
+    }
+
     function getNewsId($id_news)
     {
         return ['code' => 200, 'message' => News::find($id_news)];

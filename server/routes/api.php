@@ -89,6 +89,7 @@ Route::controller(AdminController::class)->prefix('/admin')->group(function () {
     Route::delete('/deleteSubject/{id_subject}', 'deleteSubject');
 
     Route::get('/getNews', 'getNews');
+    Route::get('/getNews/group/{id_group}', 'getNewsByGroup');
     Route::get('/getNews/{id_news}', 'getNewsId');
     Route::post('/addNews', 'addNews');
     Route::put('/updateNews', 'updateNews');
