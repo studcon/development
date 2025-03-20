@@ -35,17 +35,28 @@ const News = () => {
             // update tabs visuals
             newsGroupRef.current.classList.add('bg-buttonsHover')
             newsGlobalRef.current.classList.remove('bg-buttonsHover')
-
             axiosInstance
-                .get(`/user/getNews/group/${groupId}`)
+                .get(`user/getGroup`)
                 .then(res => {
+                    console.log('getGroup id')
                     console.log(res.data.message)
-                    setData(res.data.message)
+                    axiosInstance
+                        .get(`admin/getNews/group/${res.data.message[0].id}`)
+                        .then(res => {
+                            console.log(res.data.message)
+                            setData(res.data.message)
+                        })
+                        .catch(err => {
+                            console.log(err)
+                            setError(err)
+                        })
+
                 })
                 .catch(err => {
                     console.log(err)
                     setError(err)
                 })
+
         }
     }, [newsTypeRef])
 
